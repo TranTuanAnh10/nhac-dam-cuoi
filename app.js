@@ -69,7 +69,7 @@ const SCRIPT_DATA = [
       {
         label: '▶ Phát nhạc "Cho con" (Piano)',
         audioFile: "audio/05_cho_con_piano.mp3",
-        startTime: 0,
+        startTime: 16,
       },
     ],
   },
@@ -90,6 +90,73 @@ const SCRIPT_DATA = [
         startTime: 0,
       },
     ],
+  },
+  {
+    step: 7,
+    title: "Nhạc bổ sung — Thế Giới Của Anh",
+    description: "Bài hát dự phòng, có thể phát khi cần",
+    tracks: [
+      {
+        label: "▶ Phát nhạc Thế Giới Của Anh",
+        audioFile: "audio/07_thegioicuaanh.mp3",
+        startTime: 8,
+      },
+    ],
+  },
+];
+
+// Gợi ý nhạc dự phòng. Các nút này mở trang tìm kiếm YouTube trong tab mới,
+// không yêu cầu phải tải thêm file nhạc vào thư mục audio/.
+const EXTRA_SONGS = [
+  {
+    category: "Đón khách / nhạc nền",
+    title: "Canon in D — bản piano",
+    query: "Canon in D Pachelbel piano wedding",
+  },
+  {
+    category: "Đón khách / nhạc nền",
+    title: "A Thousand Years — Christina Perri",
+    query: "A Thousand Years Christina Perri",
+  },
+  {
+    category: "Lãng mạn / trao nhẫn",
+    title: "Perfect — Ed Sheeran",
+    query: "Perfect Ed Sheeran official",
+  },
+  {
+    category: "Lãng mạn / trao nhẫn",
+    title: "Beautiful in White — Shane Filan",
+    query: "Beautiful in White Shane Filan",
+  },
+  {
+    category: "Nhạc cưới Việt",
+    title: "Hơn Cả Yêu — Đức Phúc",
+    query: "Hơn Cả Yêu Đức Phúc official",
+  },
+  {
+    category: "Nhạc cưới Việt",
+    title: "Ngày Đầu Tiên — Đức Phúc",
+    query: "Ngày Đầu Tiên Đức Phúc official",
+  },
+  {
+    category: "Nhạc cưới Việt",
+    title: "Một Nhà — Da LAB",
+    query: "Một Nhà Da LAB official",
+  },
+  {
+    category: "Tiệc / khuấy động",
+    title: "Can't Stop the Feeling! — Justin Timberlake",
+    query: "Can't Stop the Feeling Justin Timberlake",
+  },
+  {
+    category: "Tiệc / khuấy động",
+    title: "September — Earth, Wind & Fire",
+    query: "September Earth Wind and Fire",
+  },
+  {
+    category: "Tiệc / khuấy động",
+    title: "Uptown Funk — Mark Ronson ft. Bruno Mars",
+    query: "Uptown Funk Mark Ronson Bruno Mars",
   },
 ];
 
@@ -121,7 +188,7 @@ function renderCards() {
   const container = document.getElementById("cards-container");
   if (!container) return;
 
-  container.innerHTML = SCRIPT_DATA.map((item, idx) => {
+  const scriptCards = SCRIPT_DATA.map((item, idx) => {
     // Chuyển \n thành các dòng riêng biệt
     const descHtml = item.description
       .split("\n")
@@ -171,6 +238,38 @@ function renderCards() {
       </article>
     `;
   }).join("");
+
+  const extraSongsCard = `
+    <article class="card" id="extra-songs-card">
+      <div class="card__header">
+        <span class="step-badge">♪</span>
+        <div><h2 class="card__title">Nhạc dự phòng — mở YouTube</h2></div>
+      </div>
+      <div class="card__description">
+        <span>Chọn bài để mở kết quả tìm kiếm YouTube ở tab mới. Cần kết nối Internet; hãy kiểm tra đúng phiên bản và quảng cáo trước khi phát tại sân khấu.</span>
+      </div>
+      <div class="buttons-group">
+        ${EXTRA_SONGS.map(
+          (song, idx) => `
+          <a
+            class="play-btn play-btn--external"
+            href="https://www.youtube.com/results?search_query=${encodeURIComponent(song.query)}"
+            target="_blank"
+            rel="noopener noreferrer"
+            onclick="stopAll()"
+            aria-label="Mở tìm kiếm YouTube: ${song.title}"
+          >
+            <span class="play-btn__icon">${idx < 4 ? "🎹" : idx < 7 ? "💍" : "🎉"}</span>
+            <span class="play-btn__label"><small>${song.category}</small><br>${song.title}</span>
+            <span class="play-btn__arrow">↗</span>
+          </a>
+        `,
+        ).join("")}
+      </div>
+    </article>
+  `;
+
+  container.innerHTML = scriptCards + extraSongsCard;
 }
 
 // ─────────────────────────────────────────────────────
