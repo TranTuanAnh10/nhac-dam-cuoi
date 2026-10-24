@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>🎶 Wedding Soundboard — Chị Ánh & Anh Tùng | 29/03</title>
+    <meta
+      name="description"
+      content="Bảng điều khiển âm thanh lễ cưới Chị Ánh & Anh Tùng — 29/03. Thiết kế cho người điều phối âm thanh sân khấu."
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- ═══════════════════════════════════════════════════
+       DECORATIVE BACKGROUND
+       ═══════════════════════════════════════════════════ -->
+    <div class="sparkle-bg" aria-hidden="true"></div>
+
+    <!-- ═══════════════════════════════════════════════════
+       HEADER
+       ═══════════════════════════════════════════════════ -->
+    <header class="header">
+      <!-- Decorative divider -->
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+          margin-bottom: 1rem;
+        "
+      >
+        <span class="header__divider-line"></span>
+        <span class="header__label">Wedding Day</span>
+        <span class="header__divider-line header__divider-line--right"></span>
+      </div>
+
+      <h1 class="header__title">Chị Ánh &amp; Anh Tùng</h1>
+      <p class="header__subtitle">
+        🗓 29 / 03 &nbsp;·&nbsp; 🎵 Bảng Điều Khiển Âm Thanh
+      </p>
+
+      <!-- Sub-divider -->
+      <div class="header__sub-divider"></div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════
+       MAIN CONTENT — Kịch bản Cards
+       ═══════════════════════════════════════════════════ -->
+    <main id="cards-container" class="main-container">
+      <!-- Cards sẽ được render bởi app.js -->
+    </main>
+
+    <!-- ═══════════════════════════════════════════════════
+       NOW PLAYING BAR (bottom)
+       ═══════════════════════════════════════════════════ -->
+    <div id="now-playing-bar" class="now-playing-bar">
+      <div class="now-playing-bar__inner">
+        <div class="now-playing-bar__dot"></div>
+        <p id="now-playing-text" class="now-playing-bar__text">—</p>
+        <button onclick="stopAll()" class="now-playing-bar__stop">Dừng</button>
+      </div>
+      <!-- Progress bar -->
+      <div class="progress-wrap">
+        <div class="progress-bar" onclick="seekAudio(event)">
+          <div id="progress-fill" class="progress-bar__fill"></div>
+        </div>
+        <div class="progress-time">
+          <span id="progress-current">00:00</span>
+          <span id="progress-duration">00:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+       VOLUME CONTROL (bottom-left)
+       ═══════════════════════════════════════════════════ -->
+    <div class="volume-control">
+      <span id="volume-icon" class="volume-control__icon">🔊</span>
+      <input
+        id="volume-slider"
+        class="volume-control__slider"
+        type="range"
+        min="0"
+        max="1"
+        step="0.05"
+        value="1"
+      />
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════
+       FLOATING STOP ALL BUTTON (bottom-right)
+       ═══════════════════════════════════════════════════ -->
+    <button
+      class="stop-fab"
+      onclick="stopAll()"
+      title="DỪNG TẤT CẢ"
+      aria-label="Dừng tất cả âm thanh"
+    >
+      🛑
+    </button>
+    <span class="stop-fab__label">DỪNG TẤT CẢ</span>
+
+    <!-- ═══════════════════════════════════════════════════
+       TOAST NOTIFICATION
+       ═══════════════════════════════════════════════════ -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ═══════════════════════════════════════════════════
+       JAVASCRIPT
+       ═══════════════════════════════════════════════════ -->
+    <script src="app.js"></script>
+  </body>
+</html>
