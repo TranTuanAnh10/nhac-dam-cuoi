@@ -3,160 +3,185 @@
    JavaScript — Core Logic
    ═══════════════════════════════════════════════════════ */
 
-// ─────────────────────────────────────────────────────
-// 1. DỮ LIỆU KỊCH BẢN (Lấy từ Sheet 6)
-//    Mỗi track có `audioFile` trỏ tới file .mp3 trong thư mục audio/
-//    và `startTime` (giây) để nhảy đến đúng mốc cần phát.
+// 1. KỊCH BẢN NHẠC CHÍNH
+//    Mỗi lựa chọn phát MP3 trong audio/ bằng HTMLAudioElement.
+//    Đặt file của bạn đúng tên audioFile bên dưới để nút phát hoạt động.
 // ─────────────────────────────────────────────────────
 const SCRIPT_DATA = [
   {
     step: 1,
-    title: "CD ra mắt",
-    description: "CD ra mắt",
+    title: "Mời khách ổn định",
+    description: "Nhẹ nhàng, thanh lịch để báo hiệu chuẩn bị bắt đầu.",
     tracks: [
       {
-        label: "▶ Phát nhạc CD ra mắt",
-        audioFile: "audio/01_cd_ra_mat.mp3",
+        title: "Until I Found You — Instrumental / Piano (Stephen Sanchez)",
+        audioFile: "audio/01a_until_i_found_you.mp3",
+        startTime: 0,
+      },
+      {
+        title: "I Do — Piano Version / Acoustic",
+        audioFile: "audio/01b_i_do_piano.mp3",
         startTime: 0,
       },
     ],
   },
   {
     step: 2,
-    title: "Bố mẹ 2 bên ra mắt",
+    title: "MC chào mừng",
     description:
-      "Bố mẹ 2 bên cùng lên sân khấu\nGia đình ổn định vị trí trên sân khấu, cúi chào quan khách",
+      "Trang trọng, hào hứng vừa phải. Hạ nhỏ nhạc nền dưới giọng MC.",
     tracks: [
       {
-        label: "▶ Phát nhạc (từ 02:00)",
-        audioFile: "audio/02_bo_me_ra_mat.mp3",
-        startTime: 120, // Phát từ phút thứ 2
+        title: "Đám Cưới Trên Đường Quê — hòa tấu / acoustic",
+        audioFile: "audio/02a_dam_cuoi_tren_duong_que.mp3",
+        startTime: 0,
+      },
+      {
+        title: "Marry You — bản đệm nhạc cụ nhẹ",
+        audioFile: "audio/02b_marry_you_instrumental.mp3",
+        startTime: 0,
       },
     ],
   },
   {
     step: 3,
-    title: "Trao nhẫn cưới",
-    description:
-      "MC giới thiệu, chào mừng hộ nhẫn\nCDCR trao nhẫn cưới\nChụp ảnh",
+    title: "Love story",
+    description: "Sâu lắng, lãng mạn — kể câu chuyện tình yêu của Tuấn và Nhi.",
     tracks: [
       {
-        label: "▶ Phát nhạc trao nhẫn",
-        audioFile: "audio/03_trao_nhan_cuoi.mp3",
+        title: "A Thousand Years — Piano & Cello (The Piano Guys)",
+        audioFile: "audio/03a_a_thousand_years_piano_cello.mp3",
+        startTime: 1,
+      },
+      {
+        title: "Ánh Nắng Của Anh — Instrumental (Đức Phúc)",
+        audioFile: "audio/03b_anh_nang_cua_anh.mp3",
         startTime: 0,
       },
     ],
   },
   {
     step: 4,
-    title: "Hoạt động kết ước",
-    description:
-      'Nấu cơm bằng nồi cơm điện\n🎵 "Và thế giới đã mất đi một người cô đơn"',
+    title: "Mời chú rể lên sân khấu",
+    description: "Bản lĩnh, tự tin, ngập tràn hạnh phúc.",
     tracks: [
       {
-        label: "▶ Phát nhạc kết ước",
-        audioFile: "audio/04_ket_uoc.mp3",
-        startTime: 0,
+        title: "Hơn Cả Yêu — nhạc nền đoạn điệp khúc (Đức Phúc)",
+        audioFile: "audio/04a_hon_ca_yeu.mp3",
+        startTime: 72,
       },
     ],
   },
   {
     step: 5,
-    title: "Phát biểu cảm ơn — Bố CR",
-    description:
-      'MC mời đại diện gia đình phát biểu\nĐại diện gia đình phát biểu cảm ơn\n🎵 "Cho con" (Piano)',
+    title: "Cô dâu xuất hiện",
+    description: "Khoảnh khắc lộng lẫy và xúc động nhất.",
     tracks: [
       {
-        label: '▶ Phát nhạc "Cho con" (Piano)',
-        audioFile: "audio/05_cho_con_piano.mp3",
-        startTime: 16,
+        title: "Beautiful in White (Shane Filan)",
+        audioFile: "audio/05b_beautiful_in_white.mp3",
+        startTime: 0,
       },
     ],
   },
   {
     step: 6,
-    title: "Nâng ly khai tiệc",
-    description:
-      "MC mời CDCR dâng rượu cho bố mẹ hai bên\nMC hô khẩu hiệu nâng ly\nGia đình nâng ly chúc mừng, chụp ảnh\nCDCR đi xuống first-walk trên đường dẫn — bóng nổ, bạn bè tung hoa 🎉",
+    title: "Mời bố mẹ hai nhà lên sân khấu + phát biểu cảm ơn",
+    description: "Không khí ấm áp, tri ân, sâu sắc.",
     tracks: [
       {
-        label: "🥂 Nhạc nâng ly — Marry You",
-        audioFile: "audio/06a_marry_you.mp3",
-        startTime: 0,
+        title: "Ước Mơ Của Mẹ — instrumental / piano",
+        audioFile: "audio/06a_uoc_mo_cua_me.mp3",
+        startTime: 1,
       },
       {
-        label: "💐 Nhạc First-walk — Love Story",
-        audioFile: "audio/06b_love_story.mp3",
-        startTime: 0,
+        title: "Nhật Ký Của Mẹ — hòa tấu piano",
+        audioFile: "audio/06b_nhat_ky_cua_me.mp3",
+        startTime: 1,
       },
     ],
   },
   {
     step: 7,
-    title: "Nhạc bổ sung — Thế Giới Của Anh",
-    description: "Bài hát dự phòng, có thể phát khi cần",
+    title: "Sharing — lời thề nguyện / tâm sự",
+    description: "Giữ âm lượng thật nhỏ để nghe rõ giọng đọc của hai bạn.",
     tracks: [
       {
-        label: "▶ Phát nhạc Thế Giới Của Anh",
-        audioFile: "audio/07_thegioicuaanh.mp3",
-        startTime: 8,
+        title: "Perfect — Piano & Violin (Ed Sheeran)",
+        audioFile: "audio/07a_perfect_piano_violin.mp3",
+        startTime: 1,
+      },
+      {
+        title: "Dành Cho Em — guitar acoustic không lời",
+        audioFile: "audio/07c_danh_cho_em.mp3",
+        startTime: 4,
+      },
+    ],
+  },
+  {
+    step: 8,
+    title: "Nghi thức ủ rượu",
+    description: "Huyền bí, lắng đọng, hòa quyện theo thời gian.",
+    tracks: [
+      {
+        title: "Cơn Mưa Tình Yêu — hòa tấu saxophone / piano",
+        audioFile: "audio/08a_con_mua_tinh_yeu.mp3",
+        startTime: 0,
+      },
+    ],
+  },
+  {
+    step: 9,
+    title: "Góp gạo thổi cơm chung",
+    description: "Mộc mạc, bình yên, gợi cảm giác đồng lòng về chung một nhà.",
+    tracks: [
+      {
+        title: "Một Nhà — Da LAB (acoustic / bản gốc)",
+        audioFile: "audio/09a_mot_nha.mp3",
+        startTime: 10,
+      },
+      {
+        title: "Ngày Đầu Tiên — Đức Phúc",
+        audioFile: "audio/09b_ngay_dau_tien.mp3",
+        startTime: 79,
       },
     ],
   },
 ];
 
-// Gợi ý nhạc dự phòng. Các nút này mở trang tìm kiếm YouTube trong tab mới,
-// không yêu cầu phải tải thêm file nhạc vào thư mục audio/.
-const EXTRA_SONGS = [
+// Những file đã có trong audio/ vẫn dùng được và được liệt kê riêng bên dưới.
+const LOCAL_AUDIO_TRACKS = [
+  { title: "CD ra mắt", audioFile: "audio/01_cd_ra_mat.mp3", startTime: 0 },
   {
-    category: "Đón khách / nhạc nền",
-    title: "Canon in D — bản piano",
-    query: "Canon in D Pachelbel piano wedding",
+    title: "Bố mẹ 2 bên ra mắt",
+    audioFile: "audio/02_bo_me_ra_mat.mp3",
+    startTime: 120,
   },
   {
-    category: "Đón khách / nhạc nền",
-    title: "A Thousand Years — Christina Perri",
-    query: "A Thousand Years Christina Perri",
+    title: "Trao nhẫn cưới",
+    audioFile: "audio/03_trao_nhan_cuoi.mp3",
+    startTime: 0,
   },
   {
-    category: "Lãng mạn / trao nhẫn",
-    title: "Perfect — Ed Sheeran",
-    query: "Perfect Ed Sheeran official",
+    title: "Hoạt động kết ước",
+    audioFile: "audio/04_ket_uoc.mp3",
+    startTime: 0,
   },
   {
-    category: "Lãng mạn / trao nhẫn",
-    title: "Beautiful in White — Shane Filan",
-    query: "Beautiful in White Shane Filan",
+    title: "Cho con — Piano",
+    audioFile: "audio/05_cho_con_piano.mp3",
+    startTime: 16,
+  },
+  { title: "Marry You", audioFile: "audio/06a_marry_you.mp3", startTime: 0 },
+  {
+    title: "Love Story — First-walk",
+    audioFile: "audio/06b_love_story.mp3",
+    startTime: 0,
   },
   {
-    category: "Nhạc cưới Việt",
-    title: "Hơn Cả Yêu — Đức Phúc",
-    query: "Hơn Cả Yêu Đức Phúc official",
-  },
-  {
-    category: "Nhạc cưới Việt",
-    title: "Ngày Đầu Tiên — Đức Phúc",
-    query: "Ngày Đầu Tiên Đức Phúc official",
-  },
-  {
-    category: "Nhạc cưới Việt",
-    title: "Một Nhà — Da LAB",
-    query: "Một Nhà Da LAB official",
-  },
-  {
-    category: "Tiệc / khuấy động",
-    title: "Can't Stop the Feeling! — Justin Timberlake",
-    query: "Can't Stop the Feeling Justin Timberlake",
-  },
-  {
-    category: "Tiệc / khuấy động",
-    title: "September — Earth, Wind & Fire",
-    query: "September Earth Wind and Fire",
-  },
-  {
-    category: "Tiệc / khuấy động",
-    title: "Uptown Funk — Mark Ronson ft. Bruno Mars",
-    query: "Uptown Funk Mark Ronson Bruno Mars",
+    title: "Thế Giới Của Anh",
+    audioFile: "audio/07_thegioicuaanh.mp3",
+    startTime: 8,
   },
 ];
 
@@ -195,29 +220,30 @@ function renderCards() {
       .map((line) => `<span>${line}</span>`)
       .join("");
 
-    // Render từng nút phát trong card
+    // Nút phát cục bộ dùng cùng playTrack() như player cũ.
     const buttonsHtml = item.tracks
       .map((track, tIdx) => {
-        const btnId = `btn-${idx}-${tIdx}`;
+        const btnId = `stage-${idx}-${tIdx}`;
+        const startTime = track.startTime ?? 0;
         const startLabel =
-          track.startTime > 0
-            ? `<span class="play-btn__start-time">(${formatTime(track.startTime)})</span>`
-            : "";
-
+          startTime > 0
+            ? `Bắt đầu tại ${formatTime(startTime)}`
+            : `Bắt đầu từ đầu · ${track.audioFile}`;
         return `
-        <button
-          id="${btnId}"
-          class="play-btn"
-          onclick="playTrack('${escapeAttr(track.audioFile)}', ${track.startTime}, '${btnId}', '${escapeAttr(track.label)}')"
-          aria-label="Phát ${escapeAttr(track.label)}"
-        >
-          <span class="play-btn__icon">🎵</span>
-          <span class="play-btn__label">
-            ${track.label}${startLabel}
-          </span>
-          <span class="play-btn__arrow">⏵</span>
-        </button>
-      `;
+          <button
+            id="${btnId}"
+            class="play-btn"
+            onclick="playTrack('${track.audioFile}', ${startTime}, '${btnId}', '${escapeAttr(track.title)}')"
+            aria-label="Phát ${escapeAttr(track.title)}"
+          >
+            <span class="play-btn__icon">🎵</span>
+            <span class="play-btn__label">
+              ${track.title}<br>
+              <span class="play-btn__start-time">${startLabel}</span>
+            </span>
+            <span class="play-btn__arrow">⏵</span>
+          </button>
+        `;
       })
       .join("");
 
@@ -239,37 +265,40 @@ function renderCards() {
     `;
   }).join("");
 
-  const extraSongsCard = `
-    <article class="card" id="extra-songs-card">
+  const localAudioCard = `
+    <article class="card" id="local-audio-card">
       <div class="card__header">
         <span class="step-badge">♪</span>
-        <div><h2 class="card__title">Nhạc dự phòng — mở YouTube</h2></div>
+        <div><h2 class="card__title">File nhạc đã có trong audio/</h2></div>
       </div>
       <div class="card__description">
-        <span>Chọn bài để mở kết quả tìm kiếm YouTube ở tab mới. Cần kết nối Internet; hãy kiểm tra đúng phiên bản và quảng cáo trước khi phát tại sân khấu.</span>
+        <span>Phát trực tiếp các MP3 có sẵn trong dự án. Với bài mới, đặt file MP3 đúng tên hiển thị ở nút tương ứng vào thư mục audio/.</span>
       </div>
       <div class="buttons-group">
-        ${EXTRA_SONGS.map(
-          (song, idx) => `
-          <a
-            class="play-btn play-btn--external"
-            href="https://www.youtube.com/results?search_query=${encodeURIComponent(song.query)}"
-            target="_blank"
-            rel="noopener noreferrer"
-            onclick="stopAll()"
-            aria-label="Mở tìm kiếm YouTube: ${song.title}"
-          >
-            <span class="play-btn__icon">${idx < 4 ? "🎹" : idx < 7 ? "💍" : "🎉"}</span>
-            <span class="play-btn__label"><small>${song.category}</small><br>${song.title}</span>
-            <span class="play-btn__arrow">↗</span>
-          </a>
-        `,
-        ).join("")}
+        ${LOCAL_AUDIO_TRACKS.map((track, idx) => {
+          const btnId = `local-audio-${idx}`;
+          const startLabel =
+            track.startTime > 0
+              ? `<span class="play-btn__start-time">(bắt đầu ${formatTime(track.startTime)})</span>`
+              : "";
+          return `
+            <button
+              id="${btnId}"
+              class="play-btn"
+              onclick="playTrack('${track.audioFile}', ${track.startTime}, '${btnId}', '${track.title}')"
+              aria-label="Phát ${track.title}"
+            >
+              <span class="play-btn__icon">🎧</span>
+              <span class="play-btn__label">${track.title}${startLabel}</span>
+              <span class="play-btn__arrow">⏵</span>
+            </button>
+          `;
+        }).join("")}
       </div>
     </article>
   `;
 
-  container.innerHTML = scriptCards + extraSongsCard;
+  container.innerHTML = scriptCards + localAudioCard;
 }
 
 // ─────────────────────────────────────────────────────
